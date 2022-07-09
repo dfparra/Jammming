@@ -17,12 +17,27 @@ class App extends React.Component {
       ],
       playlistName: "Playlist Name",
       playlistTracks: [
-        {name: 'SongName', artist: 'ArtistName', album: 'AlbumName', id: 'theID'},
-        {name: 'SongName1', artist: 'ArtistName1', album: 'AlbumName1', id: 'theID1'},
-        {name: 'SongName2', artist: 'ArtistName2', album: 'AlbumName2', id: 'theID2'}
+        {name: 'SongName3', artist: 'ArtistName3', album: 'AlbumName3', id: 'theID3'},
+        {name: 'SongName4', artist: 'ArtistName4', album: 'AlbumName4', id: 'theID4'},
+        {name: 'SongName5', artist: 'ArtistName5', album: 'AlbumName5', id: 'theID5'}
       ]
     }
+
+    this.addTrack = this.addTrack.bind(this);
   }
+
+  addTrack(track){
+    let tracks = this.state.playlistTracks;
+
+    //if the track already exists on the playlist, do nothing
+    if(tracks.find(savedTrack => savedTrack.id === track.id)) {
+      return;
+    }
+
+    tracks.push(track);
+    this.setState({ playlistTracks: tracks });
+  }
+
   render() {
     return (
       <div>
@@ -30,7 +45,7 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults}/>
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
             <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
